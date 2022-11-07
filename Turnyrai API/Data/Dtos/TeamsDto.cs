@@ -6,5 +6,5 @@ namespace Turnyrai_API.Data.Dtos
 
     public record CreateTeamDto([Required] string Name, [Required] string Description, [Required] string Leader);
 
-    public record UpdateTeamDto([Required]string Name, [Required] string Description, [Required]string Leader);
+    public record UpdateTeamDto([Required]string Name, [Required] string Description, [Required] string Leader);
 }

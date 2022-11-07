@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Turnyrai_API.Auth.Model;
 using Turnyrai_API.Data.Dtos;
 using Turnyrai_API.Data.Dtos.Tournaments;
 using Turnyrai_API.Data.Entities;
@@ -13,12 +18,15 @@ namespace Turnyrai_API.Controllers
     {
         private readonly ITeamsRepository _teamsRepository;
         private readonly ITournamentsRepository _tournamentsRepository;
+        private readonly IAuthorizationService _authorizationService;
+        private readonly UserManager<TournamentsRestUser> _userManager;
 
-
-        public TeamsController(ITeamsRepository teamsRepository, ITournamentsRepository tournamentsRepository)
+        public TeamsController(UserManager<TournamentsRestUser> userManager, IAuthorizationService authorizationService, ITeamsRepository teamsRepository, ITournamentsRepository tournamentsRepository)
         {
             _teamsRepository = teamsRepository;
             _tournamentsRepository = tournamentsRepository;
+            _authorizationService = authorizationService;
+            _userManager = userManager;
         }
         
         [HttpGet]
@@ -43,12 +51,24 @@ namespace Turnyrai_API.Controllers
         }
        
         [HttpPost]
+        [Authorize(Roles = TournamentRoles.TeamOwner)]
         public async Task<ActionResult<TournamentDto>> PostAsync(int tournamentId, CreateTeamDto dto)
         {
+            TournamentsRestUser tournamentsRestUser = await _userManager.FindByIdAsync(User.FindFirstValue(JwtRegisteredClaimNames.Sub));
+            var jti = await _userManager.GetAuthenticationTokenAsync(tournamentsRestUser, "JWT", "JWT Token");
+            if (jti != User.FindFirstValue(JwtRegisteredClaimNames.Jti))
+                return Unauthorized();
+
             var tournament = await _tournamentsRepository.GetAsync(tournamentId);
             if (tournament == null) return NotFound($"Turnyras su id:'{tournamentId}' neegzistuoja");
 
-            var team = new Team { Name = dto.Name, Description = dto.Description, Leader = dto.Leader };
+            var team = new Team 
+            { 
+                Name = dto.Name,
+                Description = dto.Description,
+                Leader = dto.Leader,
+                UserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub)
+            };
             team.TournamentId = tournamentId; //-------------------------?
             await _teamsRepository.CreateAsync(team);
             //201
@@ -56,16 +76,28 @@ namespace Turnyrai_API.Controllers
         }
         
         [HttpPut("{teamId}")]
+        [Authorize(Roles = TournamentRoles.TeamOwner)]
         public async Task<ActionResult<TeamDto>> Put(int tournamentId, int teamId, UpdateTeamDto dto)
         {
+            TournamentsRestUser tournamentsRestUser = await _userManager.FindByIdAsync(User.FindFirstValue(JwtRegisteredClaimNames.Sub));
+            var jti = await _userManager.GetAuthenticationTokenAsync(tournamentsRestUser, "JWT", "JWT Token");
+            if (jti != User.FindFirstValue(JwtRegisteredClaimNames.Jti))
+                return Unauthorized();
+
             var tournament = await _tournamentsRepository.GetAsync(tournamentId);
             if (tournament == null) return NotFound($"Turnyras su id:'{tournamentId}' neegzistuoja");
 
             var team = await _teamsRepository.GetAsync(tournamentId, teamId);
             if (team == null) return NotFound($"Komanda su id:'{teamId}' neegzistuoja");
-            
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, team, PolicyNames.ResourceOwner);
+            if (!authorizationResult.Succeeded)
+            {
+                return Forbid();
+            }
+
             team.Name = dto.Name;
-            //team.Description = dto.Description;
+            team.Description = dto.Description;
             team.Leader = dto.Leader;
            
             await _teamsRepository.UpdateAsync(team);
@@ -74,13 +106,25 @@ namespace Turnyrai_API.Controllers
         }
         
         [HttpDelete("{teamId}")]
+        [Authorize(Roles = TournamentRoles.TeamOwner)]
         public async Task<ActionResult> Delete(int tournamentId, int teamId)
         {
+            TournamentsRestUser tournamentsRestUser = await _userManager.FindByIdAsync(User.FindFirstValue(JwtRegisteredClaimNames.Sub));
+            var jti = await _userManager.GetAuthenticationTokenAsync(tournamentsRestUser, "JWT", "JWT Token");
+            if (jti != User.FindFirstValue(JwtRegisteredClaimNames.Jti))
+                return Unauthorized();
+
             var tournament = await _tournamentsRepository.GetAsync(tournamentId);
             if (tournament == null) return NotFound($"Turnyras su id:'{tournamentId}' neegzistuoja");
 
             var team = await _teamsRepository.GetAsync(tournamentId, teamId);
             if (team == null) return NotFound($"Komanda su id:'{teamId}' neegzistuoja");
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, team, PolicyNames.ResourceOwner);
+            if (!authorizationResult.Succeeded)
+            {
+                return Forbid();
+            }
 
             await _teamsRepository.RemoveAsync(team);
             //200-204

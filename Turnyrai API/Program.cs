@@ -1,8 +1,16 @@
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Turnyrai_API.Auth;
+using Turnyrai_API.Auth.Model;
 using Turnyrai_API.Data;
 using Turnyrai_API.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 // Add services to the container.
 
@@ -14,11 +22,38 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<TournamentsDbContext>();
 
+builder.Services.AddIdentity<TournamentsRestUser, IdentityRole>()
+    .AddEntityFrameworkStores<TournamentsDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters.ValidateAudience = false;
+    options.TokenValidationParameters.ValidateIssuer = false;
+    //options.TokenValidationParameters.ValidAudience = builder.Configuration["JWT:ValidAudience"];
+    //options.TokenValidationParameters.ValidIssuer = builder.Configuration["JWT:ValidIssuer"];
+    options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]));
+});
+
 builder.Services.AddTransient<ITournamentsRepository, TournamentsRepository>();
 builder.Services.AddTransient<ITeamsRepository, TeamsRepository>();
 builder.Services.AddTransient<IPlayersRepository, PlayersRepository>();
+builder.Services.AddTransient<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<AuthDbSeeder>();
 
-var app = builder.Build();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(PolicyNames.ResourceOwner, policy => policy.Requirements.Add(new ResourceOwnerRequirement()));
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, ResourceOwnerAuthorizationHandler>();
+
+var app = builder.Build(); 
 
 // Configure the HTTP request pipeline.
 /*if (app.Environment.IsDevelopment())
@@ -28,10 +63,13 @@ var app = builder.Build();
 }*/
 
 //app.UseHttpsRedirection();
-
-//app.UseAuthorization();
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
+var dbSeeder = app.Services.CreateScope().ServiceProvider.GetRequiredService<AuthDbSeeder>();
+await dbSeeder.SeedAsync();
 app.Run();

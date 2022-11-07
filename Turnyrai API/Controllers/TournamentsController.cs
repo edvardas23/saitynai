@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Turnyrai_API.Auth.Model;
 using Turnyrai_API.Data.Dtos.Tournaments;
 using Turnyrai_API.Data.Entities;
 using Turnyrai_API.Data.Repositories;
@@ -10,10 +15,11 @@ namespace Turnyrai_API.Controllers
     public class TournamentsController : Controller
     {
         private readonly ITournamentsRepository _tournamentsRepository;
-
-        public TournamentsController(ITournamentsRepository tournamentsRepository)
+        private readonly UserManager<TournamentsRestUser> _userManager;
+        public TournamentsController(UserManager<TournamentsRestUser> userManager, ITournamentsRepository tournamentsRepository)
         {
             _tournamentsRepository = tournamentsRepository;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -32,17 +38,35 @@ namespace Turnyrai_API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = TournamentRoles.Admin)]
         public async Task<ActionResult<TournamentDto>> Post(CreateTournamentDto dto)
         {
-            var tournament = new Tournament { Name = dto.Name, Description = dto.Description, Prize = dto.Prize };
+            TournamentsRestUser tournamentsRestUser = await _userManager.FindByIdAsync(User.FindFirstValue(JwtRegisteredClaimNames.Sub));
+            var jti = await _userManager.GetAuthenticationTokenAsync(tournamentsRestUser, "JWT", "JWT Token");
+            if (jti != User.FindFirstValue(JwtRegisteredClaimNames.Jti))
+                return Unauthorized();
+
+            var tournament = new Tournament 
+            { 
+                Name = dto.Name, 
+                Description = dto.Description, 
+                Prize = dto.Prize,
+                UserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub)
+            };
 
             await _tournamentsRepository.CreateAsync(tournament);
             //201
             return Created("", new TournamentDto(tournament.Id, tournament.Name, tournament.Description, tournament.Prize));
         }
         [HttpPut("{id}")]
+        [Authorize(Roles = TournamentRoles.Admin)]
         public async Task<ActionResult<TournamentDto>> Put(int id, UpdateTournamentDto dto)
         {
+            TournamentsRestUser tournamentsRestUser = await _userManager.FindByIdAsync(User.FindFirstValue(JwtRegisteredClaimNames.Sub));
+            var jti = await _userManager.GetAuthenticationTokenAsync(tournamentsRestUser, "JWT", "JWT Token");
+            if (jti != User.FindFirstValue(JwtRegisteredClaimNames.Jti))
+                return Unauthorized();
+
             var tournament = await _tournamentsRepository.GetAsync(id);
             if (tournament == null) return NotFound($"Turnyras su id:'{id}' neegzistuoja");
 
@@ -55,8 +79,14 @@ namespace Turnyrai_API.Controllers
             return Ok(new TournamentDto(tournament.Id, tournament.Name, tournament.Description, tournament.Prize));
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = TournamentRoles.Admin)]
         public async Task<ActionResult<TournamentDto>> Delete(int id)
         {
+            TournamentsRestUser tournamentsRestUser = await _userManager.FindByIdAsync(User.FindFirstValue(JwtRegisteredClaimNames.Sub));
+            var jti = await _userManager.GetAuthenticationTokenAsync(tournamentsRestUser, "JWT", "JWT Token");
+            if (jti != User.FindFirstValue(JwtRegisteredClaimNames.Jti))
+                return Unauthorized();
+
             var tournament = await _tournamentsRepository.GetAsync(id);
             if (tournament == null) return NotFound($"Turnyras su id:'{id}' neegzistuoja");
 

@@ -1,0 +1,34 @@
+{
+  "dependencies": {
+    "apis1": {
+      "restored": true,
+      "restoreTime": "2022-11-05T15:17:08.9031423Z"
+    },
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2022-11-05T15:26:36.3673559Z"
+    }
+  },
+  "parameters": {
+    "mssql1.subscriptionId": {
+      "Name": "mssql1.subscriptionId",
+      "Type": "subscription",
+      "Value": "203f75b7-3308-41a0-8498-06dbf873f1b6"
+    },
+    "mssql1.resourceGroupName": {
+      "Name": "mssql1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "TurnyraiAPI20221105171153ResourceGroup"
+    },
+    "apis1.resourceGroupName": {
+      "Name": "apis1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "TurnyraiAPI20221105171153ResourceGroup"
+    },
+    "apis1.subscriptionId": {
+      "Name": "apis1.subscriptionId",
+      "Type": "subscription",
+      "Value": "203f75b7-3308-41a0-8498-06dbf873f1b6"
+    }
+  }
+}
