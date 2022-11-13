@@ -10,7 +10,6 @@ namespace Turnyrai_API.Auth
     public interface IJwtTokenService
     {
         string CreateAccessTokenAsync(string userName, string userId, IEnumerable<string> userRoles);
-        string DestroyAccessToken();
         string ReturnGuid();
         //public static string guid { get; set; };
     }
@@ -46,20 +45,6 @@ namespace Turnyrai_API.Auth
                 signingCredentials: new SigningCredentials(_authSigningKey, SecurityAlgorithms.HmacSha256)
             );
             return new JwtSecurityTokenHandler().WriteToken(_accessSecurityToken);
-        }
-        public string DestroyAccessToken()
-        {
-            var authClaims = new List<Claim>
-            {
-                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new(JwtRegisteredClaimNames.Sub, "Deleted"),
-            };
-            var _accessSecurityToken = new JwtSecurityToken
-            (
-                expires: DateTime.UtcNow.AddHours(-1),
-                signingCredentials: new SigningCredentials(_authSigningKey, SecurityAlgorithms.HmacSha256)
-            );
-            return new JwtSecurityTokenHandler().WriteToken(_accessSecurityToken);
-        }
+        }     
     }
 }
