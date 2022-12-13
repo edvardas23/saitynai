@@ -35,8 +35,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters.ValidateAudience = false;
     options.TokenValidationParameters.ValidateIssuer = false;
-    //options.TokenValidationParameters.ValidAudience = builder.Configuration["JWT:ValidAudience"];
-    //options.TokenValidationParameters.ValidIssuer = builder.Configuration["JWT:ValidIssuer"];
+
     options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]));
 });
 
@@ -49,6 +48,18 @@ builder.Services.AddScoped<AuthDbSeeder>();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy(PolicyNames.ResourceOwner, policy => policy.Requirements.Add(new ResourceOwnerRequirement()));
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
 });
 
 builder.Services.AddSingleton<IAuthorizationHandler, ResourceOwnerAuthorizationHandler>();
@@ -69,6 +80,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors();
 
 var dbSeeder = app.Services.CreateScope().ServiceProvider.GetRequiredService<AuthDbSeeder>();
 await dbSeeder.SeedAsync();

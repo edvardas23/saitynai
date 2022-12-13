@@ -1,0 +1,27 @@
+.card {
+    margin: 3rem auto;
+    width: 75%;
+    max-width: 75rem;
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    min-height: 70vh;
+    align-items: "center";
+    color: white;
+    background-color: #00445B;
+  }
+
+  .card h1,
+  h4 {
+    text-align: center;
+    color: white;
+  }
+  
+  @media (max-width: 768px) {
+    .card {
+      min-width: 360px;
+      width: 360px;
+    }
+  }
+  
