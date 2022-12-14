@@ -55,6 +55,7 @@ builder.Services.AddSingleton<IAuthorizationHandler, ResourceOwnerAuthorizationH
 builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
 {
     build.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+    build.WithOrigins("https://edvardas23.github.io").AllowAnyMethod().AllowAnyHeader();
 }));
 
 var app = builder.Build();

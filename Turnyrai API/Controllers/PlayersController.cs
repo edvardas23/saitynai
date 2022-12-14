@@ -28,7 +28,7 @@ namespace Turnyrai_API.Controllers
             _userManager = userManager;
         }
         [HttpGet]
-        public async Task<ActionResult<List<PlayerDto>>> GetAllAsync(int tournamentId, int teamId)
+        public async Task<ActionResult<List<PlayerDtoGetAll>>> GetAllAsync(int tournamentId, int teamId)
         {
             var tournament = await _tournamentsRepository.GetAsync(tournamentId);
             if (tournament == null) return NotFound($"Turnyras su id:'{tournamentId}' neegzistuoja");
@@ -37,7 +37,7 @@ namespace Turnyrai_API.Controllers
             if (team == null) return NotFound($"Komanda su id:'{teamId}' neegzistuoja");
 
             var players = await _playersRepository.GetAllAsync(teamId);
-            return Ok(players.Select(o => new PlayerDto(o.Id, o.Name, o.Sports, o.Age)));
+            return Ok(players.Select(o => new PlayerDtoGetAll(o.Id, o.Name, o.Sports, o.Age, o.UserId)));
         }
         [HttpGet("{playerId}")]
         public async Task<ActionResult<PlayerDto>> GetAsync(int tournamentId, int teamId, int playerId)

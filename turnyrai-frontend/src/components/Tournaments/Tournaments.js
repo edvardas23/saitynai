@@ -19,13 +19,9 @@ const Tournaments = () => {
         const user = getUserInfo();
         if(user != null)
         { 
-            //console.log(user);
             const roles = parseJwt(user);
-            //console.log(roles);
-            //console.log(roles.includes("Admin"));
             setIsAdmin(roles.includes("Admin"));
         }
-        console.log(isAdmin);
     });
 
     useEffect(()=>{

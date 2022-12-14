@@ -12,6 +12,8 @@ const AllTeams = () => {
     const [teams, setTeams] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const {tournamentId} = useParams();
+    const [forceRefresh, setForceRefresh] = useState(false);
+
     useEffect(()=>{
       getTeams(tournamentId)
       .then((res) => {
@@ -23,7 +25,7 @@ const AllTeams = () => {
       }).finally(() => {
         setIsLoading(false);
       });
-    }, []);
+    }, [forceRefresh]);
     
     return(
       <Card>
@@ -41,6 +43,8 @@ const AllTeams = () => {
               name={team.name}
               description={team.description}
               leader={team.leader}
+              forceRefresh={forceRefresh}
+              setForceRefresh={setForceRefresh}
             />
           );
         })}

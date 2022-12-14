@@ -30,13 +30,13 @@ namespace Turnyrai_API.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<List<TeamDto>>> GetAllAsync(int tournamentId)
+        public async Task<ActionResult<List<TeamDtoGetAll>>> GetAllAsync(int tournamentId)
         {
             var tournament = await _tournamentsRepository.GetAsync(tournamentId);
             if (tournament == null) return NotFound($"Turnyras su id:'{tournamentId}' neegzistuoja");
 
             var teams = await _teamsRepository.GetAllAsync(tournamentId);
-            return Ok(teams.Select(o => new TeamDto(o.Id, o.Name, o.Description, o.Leader)));
+            return Ok(teams.Select(o => new TeamDtoGetAll(o.Id, o.Name, o.Description, o.Leader, o.UserId)));
         }
         [HttpGet("{teamId}")]
         public async Task<ActionResult<TeamDto>> GetAsync(int tournamentId, int teamId)

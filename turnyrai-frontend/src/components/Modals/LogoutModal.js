@@ -3,23 +3,19 @@ import { logout } from "../../services/services";
 import { getUserInfo, removeUserInfo} from "../../services/storage";
 import "./LoginModal.Module.css";
 import ReactDOM from "react-dom";
-import { useNavigate } from "react-router-dom";
 
 export default function LogoutModal(){
-    const navigate = useNavigate();
     const onSubmitHandler = (event) =>{
         event.preventDefault();
         logout().then(() => {
-                removeUserInfo();
-                console.log("test");
-                //removeUserInfo();
-                toggleModal();
+            console.log("test");
+            toggleModal();
             }).catch(
-                (err) =>{
+            (err) =>{
                 console.log(err);
             }).finally(()=>{
+                removeUserInfo();
                 window.location.reload();
-                //removeUserInfo();
             });
     }
     const portalElement = document.getElementById('overlays');
