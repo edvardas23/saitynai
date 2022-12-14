@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/saitynai/static/css/main.9634bc07.css",
-    "main.js": "/saitynai/static/js/main.b1152ff8.js",
+    "main.js": "/saitynai/static/js/main.c99a3692.js",
     "static/js/787.52b876ad.chunk.js": "/saitynai/static/js/787.52b876ad.chunk.js",
     "static/media/empty-basketball-court.jpg": "/saitynai/static/media/empty-basketball-court.49ef7510b2b0ec16901d.jpg",
     "index.html": "/saitynai/index.html",
     "main.9634bc07.css.map": "/saitynai/static/css/main.9634bc07.css.map",
-    "main.b1152ff8.js.map": "/saitynai/static/js/main.b1152ff8.js.map",
+    "main.c99a3692.js.map": "/saitynai/static/js/main.c99a3692.js.map",
     "787.52b876ad.chunk.js.map": "/saitynai/static/js/787.52b876ad.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9634bc07.css",
-    "static/js/main.b1152ff8.js"
+    "static/js/main.c99a3692.js"
   ]
 }
