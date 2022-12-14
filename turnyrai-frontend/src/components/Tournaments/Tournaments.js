@@ -5,11 +5,28 @@ import { getTournaments } from "../../services/services";
 import TournamentItem from "./TournamentItem";
 import Loading from "../UI/Loading";
 import Card from "../UI/Card";
+import { getUserInfo, parseJwt } from "../../services/storage";
+
 
 const Tournaments = () => {
 
     const [tournaments, setTournaments] = useState();
     const [isLoading, setIsLoading] = useState(true);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [forceRefresh, setForceRefresh] = useState(false); 
+    
+    useEffect(() => {
+        const user = getUserInfo();
+        if(user != null)
+        { 
+            //console.log(user);
+            const roles = parseJwt(user);
+            //console.log(roles);
+            //console.log(roles.includes("Admin"));
+            setIsAdmin(roles.includes("Admin"));
+        }
+        console.log(isAdmin);
+    });
 
     useEffect(()=>{
       getTournaments()
@@ -22,13 +39,13 @@ const Tournaments = () => {
       }).finally(() => {
         setIsLoading(false);
       });
-    }, []);
+    }, [forceRefresh]);
     
     return(
       <Card>
           <h1>Turnyrai</h1>
           <br />
-          <Button classes={"btn btn-primary"}>Pridėti naują turnyrą</Button>
+          {isAdmin && <Button classes={"btn btn-primary"}>Pridėti naują turnyrą</Button>}
           <br />
         {isLoading && <Loading/>}
         {  
@@ -40,6 +57,8 @@ const Tournaments = () => {
               name={tournament.name}
               description={tournament.description}
               prize={tournament.prize}
+              forceRefresh={forceRefresh}
+              setForceRefresh={setForceRefresh}
             />
           );
         })}

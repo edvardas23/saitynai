@@ -1,20 +1,25 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import classes from "./Header.module.css";
 import LoginModal from "../Modals/LoginModal";
 import LogoutModal from "../Modals/LogoutModal";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import "./style.css";
 
 const Header = (props) => { 
     return(
-    <header className={classes.header}>
-        <div className={classes.logo}>
-            <NavLink to="/">Turnyrai</NavLink>
-        </div>
-        <div className={classes.navigation}>
-            <LoginModal/>    
-            <LogoutModal/>
-        </div>
-    </header>
+     <>
+     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{padding:"0px 20px 0px"}}>
+      <Navbar.Brand href="/">
+        <h2>Turnyrai</h2>
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="mr-auto" style={{marginLeft:"auto", marginRight:"0px"}}>
+          <LoginModal/>
+          <LogoutModal/>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+    </>
     );
 };
 

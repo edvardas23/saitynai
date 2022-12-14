@@ -1,20 +1,25 @@
 import React, {useState} from "react";
-import { login } from "../../services/services";
-import { saveUserInfo , getUserInfo} from "../../services/storage";
+import { logout } from "../../services/services";
+import { getUserInfo, removeUserInfo} from "../../services/storage";
 import "./LoginModal.Module.css";
 import ReactDOM from "react-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function LoginModal(){
+export default function LogoutModal(){
+    const navigate = useNavigate();
     const onSubmitHandler = (event) =>{
         event.preventDefault();
-        login(event.target.uname.value, event.target.pass.value).then(
-            (res) => {
-                saveUserInfo(res);
+        logout().then(() => {
+                removeUserInfo();
+                console.log("test");
+                //removeUserInfo();
                 toggleModal();
-                console.log(res);
             }).catch(
                 (err) =>{
                 console.log(err);
+            }).finally(()=>{
+                window.location.reload();
+                //removeUserInfo();
             });
     }
     const portalElement = document.getElementById('overlays');
@@ -29,7 +34,7 @@ export default function LoginModal(){
     }
     return(
         <React.Fragment>
-        {!getUserInfo()  &&
+        {getUserInfo() &&
         <button onClick={toggleModal} className="btn-header">
             Atsijungti
         </button>}

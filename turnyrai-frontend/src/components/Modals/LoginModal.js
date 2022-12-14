@@ -3,6 +3,7 @@ import { login } from "../../services/services";
 import { saveUserInfo , getUserInfo} from "../../services/storage";
 import "./LoginModal.Module.css";
 import ReactDOM from "react-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export default function LoginModal(){
@@ -12,9 +13,11 @@ export default function LoginModal(){
             (res) => {
                 saveUserInfo(res);
                 toggleModal();
+                window.location.reload(false);
                 console.log(res);
             }).catch(
                 (err) =>{
+                alert("Neteisingi prisijungimo duomenys!");
                 console.log(err);
             });
     }
