@@ -17,7 +17,7 @@ const TournamentItem = (props) => {
         const user = getUserInfo();
         if(user != null)
         {             
-            const roles = parseJwt(user);
+            const { userId, roles } = parseJwt(user);
             setIsAdmin(roles.includes("Admin"));
         }
     });

@@ -3,6 +3,7 @@
 namespace Turnyrai_API.Data.Dtos
 {
     public record TeamDto(int Id, string Name, string Description, string Leader);
+    public record GetTeamDto(int Id, string Name, string Description, string Leader, string userId);
 
     public record TeamDtoGetAll(int Id, string Name, string Description, string Leader, string userId);
 

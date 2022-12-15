@@ -39,7 +39,7 @@ namespace Turnyrai_API.Controllers
             return Ok(teams.Select(o => new TeamDtoGetAll(o.Id, o.Name, o.Description, o.Leader, o.UserId)));
         }
         [HttpGet("{teamId}")]
-        public async Task<ActionResult<TeamDto>> GetAsync(int tournamentId, int teamId)
+        public async Task<ActionResult<GetTeamDto>> GetAsync(int tournamentId, int teamId)
         {
             var tournament = await _tournamentsRepository.GetAsync(tournamentId);
             if (tournament == null) return NotFound($"Turnyras su id:'{tournamentId}' neegzistuoja");
@@ -47,7 +47,7 @@ namespace Turnyrai_API.Controllers
             var team = await _teamsRepository.GetAsync(tournamentId, teamId);
             if (team == null) return NotFound($"Komanda su id:'{teamId}' neegzistuoja");
 
-            return new TeamDto(team.Id, team.Name, team.Description, team.Leader);
+            return new GetTeamDto(team.Id, team.Name, team.Description, team.Leader, team.UserId);
         }
        
         [HttpPost]
