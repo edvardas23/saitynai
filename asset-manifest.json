@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/saitynai/static/css/main.9634bc07.css",
-    "main.js": "/saitynai/static/js/main.c99a3692.js",
+    "main.css": "/saitynai/static/css/main.6a5ffe37.css",
+    "main.js": "/saitynai/static/js/main.0e02da7e.js",
     "static/js/787.52b876ad.chunk.js": "/saitynai/static/js/787.52b876ad.chunk.js",
     "static/media/empty-basketball-court.jpg": "/saitynai/static/media/empty-basketball-court.49ef7510b2b0ec16901d.jpg",
     "index.html": "/saitynai/index.html",
-    "main.9634bc07.css.map": "/saitynai/static/css/main.9634bc07.css.map",
-    "main.c99a3692.js.map": "/saitynai/static/js/main.c99a3692.js.map",
+    "main.6a5ffe37.css.map": "/saitynai/static/css/main.6a5ffe37.css.map",
+    "main.0e02da7e.js.map": "/saitynai/static/js/main.0e02da7e.js.map",
     "787.52b876ad.chunk.js.map": "/saitynai/static/js/787.52b876ad.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9634bc07.css",
-    "static/js/main.c99a3692.js"
+    "static/css/main.6a5ffe37.css",
+    "static/js/main.0e02da7e.js"
   ]
 }
