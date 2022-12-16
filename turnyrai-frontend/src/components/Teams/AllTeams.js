@@ -8,6 +8,7 @@ import TeamItem from "./TeamItem";
 import { useParams } from "react-router-dom";
 import CreateTournamentItemModal from "../Modals/CreateTeamModal";
 import { getUserInfo, parseJwt } from "../../services/storage";
+import { MdOutlineAdd } from 'react-icons/md';
 
 const AllTeams = () => {
 
@@ -59,7 +60,7 @@ const AllTeams = () => {
       <Card>
           <h1>Turnyro komandos</h1>
           <br />
-          {(isTeamOwner || isAdmin ) && <Button classes={"btn btn-primary"} onClick={() => setCreateModalShow(true)}>Pridėti naują komandą</Button>}
+          {(isTeamOwner || isAdmin ) && <Button classes={"btn btn-primary"} onClick={() => setCreateModalShow(true)}><MdOutlineAdd style={{verticalAlign:"middle", display:"inline-block", paddingRight:"4px"}}/><span style={{verticalAlign:"middle", display:"inline-block"}}>Pridėti naują komandą</span></Button>}
           <CreateTournamentItemModal show={createModalShow} onHide={() => setCreateModalShow(false)} onCreate={createTeam}/>
           <br />
         {isLoading && <Loading/>}

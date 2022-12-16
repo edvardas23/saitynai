@@ -1,26 +1,22 @@
 import React, {useState} from "react";
-import { login } from "../../services/services";
-import { saveUserInfo , getUserInfo} from "../../services/storage";
+import { register } from "../../services/services";
+import { getUserInfo} from "../../services/storage";
 import "./LoginModal.Module.css";
 import ReactDOM from "react-dom";
-import { useNavigate } from "react-router-dom";
 import { Modal, Form} from 'react-bootstrap';
 
 
 export default function LoginModal(){
     const onSubmitHandler = (event) =>{
         event.preventDefault();
-        login(event.target.uname.value, event.target.pass.value).then(
-            (res) => {
-                saveUserInfo(res);
-                toggleModal();
+        register(event.target.uname.value, event.target.email.value, event.target.pass.value).then(
+            () => {
                 window.location.reload(false);
-                console.log(res);
+                toggleModal();
             }).catch(
                 (err) =>{
-                alert("Neteisingi prisijungimo duomenys!");
                 console.log(err);
-            });
+            })
     }
     const portalElement = document.getElementById('overlays');
     const [modal, setModal] = useState(false);
@@ -36,7 +32,7 @@ export default function LoginModal(){
         <React.Fragment>
         {!getUserInfo()  &&
         <button onClick={toggleModal} className="btn-header">
-            Prisijungti
+            Registruotis
         </button>}
         { ReactDOM.createPortal(modal && (
             <form onSubmit={onSubmitHandler}>
@@ -45,7 +41,7 @@ export default function LoginModal(){
                         <div className="modal-content">
                             <Modal.Header>
                                 <Modal.Title id="contained-modal-title-vcenter">
-                                    <h3 style={{color:"black", textAlign:"center"}}>Prisijungimas</h3>
+                                    <h3 style={{color:"black", textAlign:"center"}}>Registracija</h3>
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
@@ -54,13 +50,17 @@ export default function LoginModal(){
                                 <Form.Control style={{width:"90%"}} name="uname" type="text" placeholder="Naudotojo vardas" autoFocus required/>
                                 </Form.Group>
                                 <Form.Group>
+                                <Form.Label>El. paštas</Form.Label>
+                                <Form.Control style={{width:"90%"}} name="email" type="email" placeholder="El.paštas" required/>
+                                </Form.Group>
+                                <Form.Group>
                                 <Form.Label>Slaptažodis</Form.Label>
                                 <Form.Control style={{width:"90%"}} name="pass" type="password" placeholder="Slaptažodis" required/>
                                 </Form.Group>
                             </Modal.Body>
                             <div className="modal-footer">
                                 <button inputMode="submit" className="btn btn-primary">
-                                    Prisijungti
+                                    Registruotis
                                 </button>
                                 <button className="btn btn-secondary" onClick={toggleModal}>
                                     Atšaukti

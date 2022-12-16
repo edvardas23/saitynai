@@ -5,7 +5,10 @@ import { getUserInfo, parseJwt } from "../../services/storage";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import DeleteItemModal from "../Modals/DeleteItemModal";
-import { deleteTeam } from "../../services/services";
+import { deleteTeam , editTeamItem} from "../../services/services";
+import EditTeamModal from "../Modals/EditTeamModal";
+import { BsTrash } from 'react-icons/bs';
+import { AiOutlineEdit } from 'react-icons/ai';
 
 const TeamItem = (props) => {
 
@@ -14,6 +17,7 @@ const TeamItem = (props) => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
     const [deleteModalShow, setDeleteModalShow] = useState(false);
+    const [editModalShow, setEditModalShow] = useState(false);
     
     useEffect(() => {
         const user = getUserInfo();
@@ -40,6 +44,21 @@ const TeamItem = (props) => {
         }
     }
 
+    const editTeam=(name, description, prize)=>{
+        if(isAdmin || isOwner){
+            editTeamItem(name, description, prize, tournamentId, props.id)
+            .then((res)=>{
+                props.setForceRefresh(!props.forceRefresh);
+                setEditModalShow(false);
+                console.log(res);
+            })
+            .catch((e) =>{
+                console.log(e?.response?.data?.message);
+            })
+        }
+    }
+
+
     const onPlayersViewHandler=(event)=>{
         navigate(`/tournaments/${tournamentId}/teams/${props.id}/players`);
     }
@@ -51,9 +70,10 @@ const TeamItem = (props) => {
             <h2>Prizas: {props.leader}</h2>
             <br/>
             <Button classes={`${btn.btn} ${btn["btn-primary"]}`} onClick={onPlayersViewHandler} >Peržiūrėti žaidėjus</Button>
-            {(isAdmin || isOwner) && <Button classes={`${btn.btn} ${btn["btn-primary"]}`} >Redaguoti</Button> }
-            {(isAdmin || isOwner) && <Button classes={`${btn.btn} ${btn["btn-danger"]}`} onClick={() => setDeleteModalShow(true)}>Pašalinti</Button> }
+            {(isAdmin || isOwner) && <Button classes={`${btn.btn} ${btn["btn-primary"]}`} onClick={() => setEditModalShow(true)} ><AiOutlineEdit style={{verticalAlign:"middle", display:"inline-block", paddingRight:"4px"}}/><span style={{verticalAlign:"middle", display:"inline-block"}}>Redaguoti</span></Button> }
+            {(isAdmin || isOwner) && <Button classes={`${btn.btn} ${btn["btn-danger"]}`} onClick={() => setDeleteModalShow(true)}><BsTrash style={{verticalAlign:"middle", display:"inline-block", paddingRight:"4px"}}/><span style={{verticalAlign:"middle", display:"inline-block"}}>Pašalinti</span></Button> }
             <DeleteItemModal show={deleteModalShow} onHide={() => setDeleteModalShow(false)} onDelete={onDelete}/>
+            <EditTeamModal show={editModalShow} onHide={() => setEditModalShow(false)} onEdit={editTeam}/>
         </div>
     );
 };

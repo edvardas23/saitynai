@@ -8,6 +8,7 @@ import Card from "../UI/Card";
 import PlayerItem from "./PlayerItem";
 import { useParams } from "react-router-dom";
 import CreatePlayerItemModal from "../Modals/CreatePlayerModal";
+import { MdOutlineAdd } from 'react-icons/md';
 
 const AllPlayers = () => {
 
@@ -65,7 +66,7 @@ const AllPlayers = () => {
       <Card>
           <h1>Komandos žaidėjai</h1>
           <br />
-          {(isAdmin || isOwner) && <Button classes={"btn btn-primary"}  onClick={() => setCreateModalShow(true)}>Pridėti naują žaidėją</Button>}
+          {(isAdmin || isOwner) && <Button classes={"btn btn-primary"}  onClick={() => setCreateModalShow(true)}><MdOutlineAdd style={{verticalAlign:"middle", display:"inline-block", paddingRight:"4px"}}/><span style={{verticalAlign:"middle", display:"inline-block"}}>Pridėti naują žaidėją</span></Button>}
           <CreatePlayerItemModal show={createModalShow} onHide={() => setCreateModalShow(false)} onCreate={createPlayer}/>
           <br />
         {isLoading && <Loading/>}

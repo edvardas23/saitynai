@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getUserInfo, saveUserInfo } from "./storage";
+import { getUserInfo } from "./storage";
 
 const api = axios.create({
   baseURL: "https://turnyraiapi20221105171153.azurewebsites.net/api",
@@ -12,13 +12,20 @@ export const login = async (userName, password) => {
     });
     return res.data;
   };
+export const register = async (userName, email, password) => {
+    const res = await api.post("/register", {
+        userName,
+        email,
+        password,
+    });
+    return res.data;
+  };
 export const logout = async () => {
   const token = getUserInfo()?.accessToken;
   if (!token) return Promise.reject();
   console.log(token);
   const res = await api.post("/logout", {}, {
     headers: {
-      //'Content-Type':'application/problem+json; charset=utf-8',
       'Authorization': `Bearer ${token}`
     }
   });
@@ -90,6 +97,33 @@ export const addTeam = async (name, description, leader, tournamentId) => {
 export const addPlayer = async (name, sports, age, tournamentId, teamId) => {
   const token = getUserInfo()?.accessToken;
   const res = await api.post(`/tournaments/${tournamentId}/teams/${teamId}/players`, { name, sports, age},{
+  headers:{
+    'Authorization': `Bearer ${token}`
+  }});
+  return res.data;
+};
+
+export const editTournamentItem = async (name, description, prize, tournamentId) => {
+  const token = getUserInfo()?.accessToken;
+  const res = await api.put(`/tournaments/${tournamentId}`, { name, description, prize},{
+  headers:{
+    'Authorization': `Bearer ${token}`
+  }});
+  return res.data;
+};
+
+export const editTeamItem = async (name, description, leader, tournamentId, teamId) => {
+  const token = getUserInfo()?.accessToken;
+  const res = await api.put(`/tournaments/${tournamentId}/teams/${teamId}`, { name, description, leader},{
+  headers:{
+    'Authorization': `Bearer ${token}`
+  }});
+  return res.data;
+};
+
+export const editPlayerItem = async (name, sports, age, tournamentId, teamId, playerId) => {
+  const token = getUserInfo()?.accessToken;
+  const res = await api.put(`/tournaments/${tournamentId}/teams/${teamId}/players/${playerId}`, { name, sports, age},{
   headers:{
     'Authorization': `Bearer ${token}`
   }});

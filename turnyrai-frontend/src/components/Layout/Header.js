@@ -1,6 +1,7 @@
 import React from "react";
 import LoginModal from "../Modals/LoginModal";
 import LogoutModal from "../Modals/LogoutModal";
+import RegisterModal from "../Modals/RegisterModal";
 import { Nav, Navbar } from "react-bootstrap";
 import "./style.css";
 import { Link } from "react-router-dom";
@@ -8,7 +9,7 @@ import { Link } from "react-router-dom";
 const Header = (props) => { 
     return(
      <>
-     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{padding:"0px 20px 0px"}}>
+     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{padding:"0px 30px 0px"}}>
       <Navbar.Brand>
         <Link to="/" style={{textDecoration:"none", color:"white"}}><h2>Turnyrai</h2></Link>
       </Navbar.Brand>
@@ -16,6 +17,7 @@ const Header = (props) => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto" style={{marginLeft:"auto", marginRight:"0px"}}>
           <LoginModal/>
+          <RegisterModal/>
           <LogoutModal/>
         </Nav>
       </Navbar.Collapse>

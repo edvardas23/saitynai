@@ -7,6 +7,7 @@ import Loading from "../UI/Loading";
 import Card from "../UI/Card";
 import { getUserInfo, parseJwt } from "../../services/storage";
 import CreateTournamentItemModal from "../Modals/CreateTournamentModal";
+import { MdOutlineAdd } from 'react-icons/md';
 
 
 const Tournaments = () => {
@@ -55,7 +56,7 @@ const Tournaments = () => {
       <Card>
           <h1>Turnyrai</h1>
           <br />
-          {isAdmin && <Button classes={"btn btn-primary"} onClick={() => setCreateModalShow(true)}>Pridėti naują turnyrą</Button>}
+          {isAdmin && <Button classes={"btn btn-primary"} onClick={() => setCreateModalShow(true)}><MdOutlineAdd style={{verticalAlign:"middle", display:"inline-block", paddingRight:"4px"}}/><span style={{verticalAlign:"middle", display:"inline-block"}}>Pridėti naują turnyrą</span></Button>}
           <CreateTournamentItemModal show={createModalShow} onHide={() => setCreateModalShow(false)} onCreate={createTournament}/>
           <br />
         {isLoading && <Loading/>}
