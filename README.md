@@ -16,4 +16,26 @@ Neregistruotas informacinės sistemos naudotojas galės:
 Registruotas informacinės sistemos naudotojas galės:
 1.	Prisijungti prie sistemos;
 2.	Peržiūrėti turnyrus, komandas, žaidimus, žaidėjus;
-3.	Atsijungti nuo sistemos.
+3.	Atsijungti nuo sistemos;
+
+
+Komandos atstovas galės:
+1.	Peržiūrėti turnyrus;
+2.	Įregistruoti savo komandą į turnyrą;
+3.	Pridėti, pašalinti, redaguoti, peržiūrėti savo komandos žaidėjus;
+4.	Peržiūrėti kitus žaidėjus;
+5.	Peržiūrėti kitas komandas;
+
+
+Administratorius galės:
+1.	Sukurti, ištrinti, redaguoti, peržiūrėti turnyrą;
+2.	Sukurti, ištrinti, redaguoti, peržiūrėti komandą;
+3.	Sukurti, ištrinti, redaguoti, peržiūrėti žaidėjus;
+
+# Sistemos architektūra
+
+Sistemos sudedamosios dalys:
+
++ Kliento pusė (angl. *Front-end*) – bus realizuojama naudojant *React* karkasą. Nuoroda į repozitoriją: https://github.com/edvardas23/saitynai/tree/master/turnyrai-frontend.
+
++ Serverio pusė (angl. *Back-end*) – bus realizuojama naudojant C#. Duomenų bazė MSSQL. Nuoroda į repozitoriją: https://github.com/edvardas23/saitynai/tree/master/Turnyrai%20API.
