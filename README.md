@@ -90,4 +90,18 @@ Paveikslėlyje pavaizduota kuriamos informacinės sistemos diegimo diagrama. Sis
 | --- |
 | ![Registracijos realizacija](Photos/Registracijareal.png) |
 
+## Turnyro pridėjimo/redagavimo/pašalinimo langai
+Kitų sistemos objektų pridėjimo, redagavimo ir pašalinimo operacijos taip pat realizuotos naudojant modalinius langus.
+
+| Pridėti turnyrą |
+| --- |
+| ![Pridėti turnyrą realizacija](Photos/create.png) |
+
+| Redaguoti |
+| --- |
+| ![Redaguoti turnyrą realizacija](Photos/edit.png) |
+
+| Pašalinti |
+| --- |
+| ![Pašalinti turnyrą realizacija](Photos/delete.png) |
 
