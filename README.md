@@ -44,8 +44,8 @@ Paveikslėlyje pavaizduota kuriamos informacinės sistemos diegimo diagrama. Sis
 
 ![Diegimo diagrama](Photos/diagram.png)
 
-#Naudotojo sąsajos projektas
-##Pagrindinis puslapis (Turnyrai)
+# Naudotojo sąsajos projektas
+## Pagrindinis puslapis (Turnyrai)
 | Wireframe |
 | --- |
 | ![Turnyrų wireframe]() |
