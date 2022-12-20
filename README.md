@@ -45,7 +45,49 @@ Paveikslėlyje pavaizduota kuriamos informacinės sistemos diegimo diagrama. Sis
 ![Diegimo diagrama](Photos/diagram.png)
 
 # Naudotojo sąsajos projektas
-## Pagrindinis puslapis (Turnyrai)
+## Pagrindinis puslapis - Turnyrų sąrašas
 | Wireframe |
 | --- |
-| ![Turnyrų wireframe]() |
+| ![Turnyrų wireframe](Photos/Turnyrai.png) |
+
+| Realizacija |
+| --- |
+| ![Turnyrų realizacija](Photos/Turnyraireal.png) |
+
+## Komandų sąrašas
+| Wireframe |
+| --- |
+| ![Komandų wireframe](Photos/Komandos.png) |
+
+| Realizacija |
+| --- |
+| ![Komandų realizacija](Photos/Komandosreal.png) |
+
+## Žaidėjų sąrašas
+| Wireframe |
+| --- |
+| ![Žaidėjų wireframe](Photos/Zaidejai.png) |
+
+| Realizacija |
+| --- |
+| ![Žaidėjų realizacija](Photos/Zaidejaireal.png) |
+
+## Prisijungimas
+| Wireframe |
+| --- |
+| ![Prisijungimo wireframe](Photos/Prisijungimas.png) |
+
+| Realizacija |
+| --- |
+| ![Prisijungimo realizacija](Photos/Prisijungimasreal.png) |
+
+## Registracija
+| Wireframe |
+| --- |
+| ![Registracijos wireframe](Photos/Registracija.png) |
+
+| Realizacija |
+| --- |
+| ![Registracijos realizacija](Photos/Registracijareal.png) |
+
+
