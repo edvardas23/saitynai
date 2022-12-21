@@ -419,3 +419,23 @@ Kitų sistemos objektų pridėjimo, redagavimo ir pašalinimo operacijos taip pa
    <tr><td>Atsakymo kodas</td><td>204 - No Content</td></tr>
    <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 401 - Unauthorized, netinkamas arba neegzistuojantis token. </td></tr>
 </table>
+
+## Naudotojo API metodai
+
+### Prisijungti prie sistemos
+
+<table>
+  <tr><td>API metodas </td><td>Login (POST)</td></tr>
+  <tr><td>Paskirtis</td><td>Prisijungti prie sistemos</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/login</td></tr>
+  <tr><td>Užklausos struktūra</td><td>{
+    "userName": "admin",
+    "password": "Password1!"
+}</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>-</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>{
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJqdGkiOiJkYzk1NzJjNi01ZWQxLTQyMGItYjYwMS1jNDY0NTRjYzMwYmQiLCJzdWIiOiJmNmIyZjcwMy1lOTNmLTQ2OWUtOTdhMy1mZWI5MmI4N2VkMzEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiVGVhbU93bmVyIiwiQWRtaW4iLCJHdWVzdCJdLCJleHAiOjE2NzE2Mjk2NjV9.CWI2cHT3AUe-qZ67EW3C8CZIQz5keNHwzBIlPzWwzkE"
+}</td></tr>
+   <tr><td>Atsakymo kodas</td><td>200 - OK</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 400 - Bad request, neįvesti arba blogai įvesti prisijungimo duomenys.</td></tr>
+</table>
