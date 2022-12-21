@@ -97,11 +97,16 @@ Kitų sistemos objektų pridėjimo, redagavimo ir pašalinimo operacijos taip pa
 | --- |
 | ![Pridėti turnyrą realizacija](Photos/create.png) |
 
-| Redaguoti |
+| Redaguoti turnyrą |
 | --- |
 | ![Redaguoti turnyrą realizacija](Photos/edit.png) |
 
-| Pašalinti |
+| Pašalinti turnyrą |
 | --- |
 | ![Pašalinti turnyrą realizacija](Photos/delete.png) |
+
+# API specifikacija
+
+|Atsakymo formatas|JSON|
+|Norma ribota?|Neribota|
 
