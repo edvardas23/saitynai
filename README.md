@@ -111,7 +111,6 @@ Kitų sistemos objektų pridėjimo, redagavimo ir pašalinimo operacijos taip pa
 <table>
   <tr><td>Atsakymo formatas</td><td>JSON</td></tr>
   <tr><td>Norma ribota?</td><td>Neribota</td></tr>
-  <tr><td>Response codes</td><td>201, 400, 401, 403</td></tr>
 </table>
 
 
