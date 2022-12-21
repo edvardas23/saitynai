@@ -213,4 +213,209 @@ Kitų sistemos objektų pridėjimo, redagavimo ir pašalinimo operacijos taip pa
    <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 401 - Unauthorized, netinkamas arba neegzistuojantis token. </td></tr>
 </table>
 
+## Komandų API metodai
 
+### Gauti visas turnyro komandas
+
+<table>
+  <tr><td>API metodas </td><td>Get All Teams (GET)</td></tr>
+  <tr><td>Paskirtis</td><td>Gauti visus komandas ir jų informaciją</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/tournaments/{tournamentId}/teams</td></tr>
+  <tr><td>Užklausos struktūra</td><td>-</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>-</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>{
+        "id": 2,
+        "name": "Komanda Nr. 2",
+        "description": "Vidutinė komanda",
+        "leader": "Komandos Lyderis 2",
+        "userId": "55a8e5ce-031d-4a6c-8dba-e6948b0ba9d3"
+    },
+    {
+        "id": 3,
+        "name": "Gerulė komanda",
+        "description": "labai gera komanda",
+        "leader": "Edvardas",
+        "userId": "55a8e5ce-031d-4a6c-8dba-e6948b0ba9d3"
+    }</td></tr>
+   <tr><td>Atsakymo kodas</td><td>200 - OK</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią</td></tr>
+</table>
+
+### Gauti vieną turnyro komandą
+
+<table>
+  <tr><td>API metodas </td><td>Get Team (GET)</td></tr>
+  <tr><td>Paskirtis</td><td>Gauti komandą ir jos informaciją</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/tournaments/{tournamentId}/teams/{teamId}</td></tr>
+  <tr><td>Užklausos struktūra</td><td>-</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>-</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>{
+    "id": 2,
+    "name": "Komanda Nr. 2",
+    "description": "Vidutinė komanda",
+    "leader": "Komandos Lyderis 2",
+    "userId": "55a8e5ce-031d-4a6c-8dba-e6948b0ba9d3"
+}</td></tr>
+   <tr><td>Atsakymo kodas</td><td>200 - OK</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. </td></tr>
+</table>
+
+### Sukurti komandą
+
+<table>
+  <tr><td>API metodas </td><td>Create Team (POST)</td></tr>
+  <tr><td>Paskirtis</td><td>Sukurti naują komandą</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/tournaments/{tournamentId}/teams</td></tr>
+  <tr><td>Užklausos struktūra</td><td>{
+    "name": "Komanda Nr. 6",
+    "description": "Prasta komanda",
+    "leader": "Komandos Lyderis 6"
+}</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>Authorization: Bearer {token}</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>{
+    "id": 21,
+    "name": "Komanda Nr. 6",
+    "description": "Prasta komanda",
+    "leader": "Komandos Lyderis 6"
+}</td></tr>
+   <tr><td>Atsakymo kodas</td><td>201 - Created</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 401 - Unauthorized, netinkamas arba neegzistuojantis token. 400 - Bad request, neįvesta privaloma užklausos informacija </td></tr>
+</table>
+
+### Redaguoti komandą
+
+<table>
+  <tr><td>API metodas </td><td>Update Team (PUT)</td></tr>
+  <tr><td>Paskirtis</td><td>Redaguoti komandos informaciją</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/tournaments/{tournamentId}/teams/{teamId}</td></tr>
+  <tr><td>Užklausos struktūra</td><td>{
+    "name": "Komanda Nr. 6",
+    "description": "Prasta komanda",
+    "leader": "Komandos Lyderis 6"
+}</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>Authorization: Bearer {token}</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>{
+    "id": 8,
+    "name": "Komanda Nr. 6",
+    "description": "Prasta komanda",
+    "leader": "Komandos Lyderis 6"
+}</td></tr>
+   <tr><td>Atsakymo kodas</td><td>200 - OK</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 401 - Unauthorized, netinkamas arba neegzistuojantis token. 400 - Bad request, neįvesta privaloma užklausos informacija </td></tr>
+</table>
+
+### Pašalinti komandą
+
+<table>
+  <tr><td>API metodas </td><td>Delete Team (DELETE)</td></tr>
+  <tr><td>Paskirtis</td><td>Pašalinti komandą</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/tournaments/{tournamentId}/teams/{teamId}</td></tr>
+  <tr><td>Užklausos struktūra</td><td>-</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>Authorization: Bearer {token}</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>-</td></tr>
+   <tr><td>Atsakymo kodas</td><td>204 - No Content</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 401 - Unauthorized, netinkamas arba neegzistuojantis token. </td></tr>
+</table>
+
+## Žaidėjų API metodai
+
+### Gauti visus turnyro komandos žaidėjus
+
+<table>
+  <tr><td>API metodas </td><td>Get All Players (GET)</td></tr>
+  <tr><td>Paskirtis</td><td>Gauti visus žaidėjus ir jų informaciją</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/tournaments/{tournamentId}/teams/{teamId}/players</td></tr>
+  <tr><td>Užklausos struktūra</td><td>-</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>-</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>{
+        "id": 16,
+        "name": "Edvardas",
+        "sports": "Krepšinis",
+        "age": 22,
+        "userId": "f6b2f703-e93f-469e-97a3-feb92b87ed31"
+    },
+    {
+        "id": 17,
+        "name": "Rokas",
+        "sports": "Krepšinis",
+        "age": 23,
+        "userId": "f6b2f703-e93f-469e-97a3-feb92b87ed31"
+    }</td></tr>
+   <tr><td>Atsakymo kodas</td><td>200 - OK</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią</td></tr>
+</table>
+
+### Gauti vieną turnyro komandos žaidėją
+
+<table>
+  <tr><td>API metodas </td><td>Get Player (GET)</td></tr>
+  <tr><td>Paskirtis</td><td>Gauti žaidėją ir jo informaciją</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/tournaments/{tournamentId}/teams/{teamId}/players/{playerId}</td></tr>
+  <tr><td>Užklausos struktūra</td><td>-</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>-</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>{
+    "id": 16,
+    "name": "Edvardas",
+    "sports": "Krepšinis",
+    "age": 22
+}</td></tr>
+   <tr><td>Atsakymo kodas</td><td>200 - OK</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. </td></tr>
+</table>
+
+### Sukurti naują žaidėją
+
+<table>
+  <tr><td>API metodas </td><td>Create Player (POST)</td></tr>
+  <tr><td>Paskirtis</td><td>Sukurti naują žaidėją</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/tournaments/{tournamentId}/teams/{teamId}/players</td></tr>
+  <tr><td>Užklausos struktūra</td><td>{
+    "name": "Žaidėjas5",
+    "sports": "Futbolas",
+    "age": 40
+}</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>Authorization: Bearer {token}</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>{
+    "id": 18,
+    "name": "Žaidėjas5",
+    "sports": "Futbolas",
+    "age": 40
+}</td></tr>
+   <tr><td>Atsakymo kodas</td><td>201 - Created</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 401 - Unauthorized, netinkamas arba neegzistuojantis token. 400 - Bad request, neįvesta privaloma užklausos informacija </td></tr>
+</table>
+
+### Redaguoti žaidėją
+
+<table>
+  <tr><td>API metodas </td><td>Update Player (PUT)</td></tr>
+  <tr><td>Paskirtis</td><td>Redaguoti žaidėjo informaciją</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/tournaments/{tournamentId}/teams/{teamId}/players/{playerId}</td></tr>
+  <tr><td>Užklausos struktūra</td><td>{
+    "name": "Edvardas",
+    "sports": "Tinklinis",
+    "age": 50
+}</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>Authorization: Bearer {token}</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>{
+    "id": 18,
+    "name": "Edvardas",
+    "sports": "Tinklinis",
+    "age": 50
+}</td></tr>
+   <tr><td>Atsakymo kodas</td><td>200 - OK</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 401 - Unauthorized, netinkamas arba neegzistuojantis token. 400 - Bad request, neįvesta privaloma užklausos informacija </td></tr>
+</table>
+
+### Pašalinti žaidėją
+
+<table>
+  <tr><td>API metodas </td><td>Delete Player (DELETE)</td></tr>
+  <tr><td>Paskirtis</td><td>Pašalinti žaidėją</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/tournaments/{tournamentId}/teams/{teamId}/players/{playerId}</td></tr>
+  <tr><td>Užklausos struktūra</td><td>-</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>Authorization: Bearer {token}</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>-</td></tr>
+   <tr><td>Atsakymo kodas</td><td>204 - No Content</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 401 - Unauthorized, netinkamas arba neegzistuojantis token. </td></tr>
+</table>
