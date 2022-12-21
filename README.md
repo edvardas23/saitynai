@@ -108,5 +108,6 @@ Kitų sistemos objektų pridėjimo, redagavimo ir pašalinimo operacijos taip pa
 # API specifikacija
 
 |Atsakymo formatas|JSON|
+|---|---|
 |Norma ribota?|Neribota|
 
