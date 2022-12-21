@@ -437,5 +437,39 @@ Kitų sistemos objektų pridėjimo, redagavimo ir pašalinimo operacijos taip pa
     "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJqdGkiOiJkYzk1NzJjNi01ZWQxLTQyMGItYjYwMS1jNDY0NTRjYzMwYmQiLCJzdWIiOiJmNmIyZjcwMy1lOTNmLTQ2OWUtOTdhMy1mZWI5MmI4N2VkMzEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiVGVhbU93bmVyIiwiQWRtaW4iLCJHdWVzdCJdLCJleHAiOjE2NzE2Mjk2NjV9.CWI2cHT3AUe-qZ67EW3C8CZIQz5keNHwzBIlPzWwzkE"
 }</td></tr>
    <tr><td>Atsakymo kodas</td><td>200 - OK</td></tr>
-   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 400 - Bad request, neįvesti arba blogai įvesti prisijungimo duomenys.</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 400 - Bad request, neįvesti arba įvesti neteisingi prisijungimo duomenys.</td></tr>
+</table>
+
+### Prisiregistruoti prie sistemos
+
+<table>
+  <tr><td>API metodas </td><td>Register (POST)</td></tr>
+  <tr><td>Paskirtis</td><td>Prisiregistruoti prie sistemos</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/register</td></tr>
+  <tr><td>Užklausos struktūra</td><td>{
+    "userName": "EdvardasTEST",
+    "email": "edvardaitis1@gmail.com",
+    "password": "Teststring1!"
+}</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>-</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>{
+    "id": "d2d82049-03cb-4f82-996e-1167b2c6fb7a",
+    "userName": "Edvar11dasTEST",
+    "email": "edvardai11tis1@gmail.com"
+}</td></tr>
+   <tr><td>Atsakymo kodas</td><td>201 - Created</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 400 - Bad request, neįvesti duomenys arba naudotojas tokiu paštu jau egzistuoja.</td></tr>
+</table>
+
+### Atsijungti nuo sistemos
+
+<table>
+  <tr><td>API metodas </td><td>Logout (POST)</td></tr>
+  <tr><td>Paskirtis</td><td>Atsijungti nuo sistemos</td></tr>
+  <tr><td>Kelias iki metodo (angl. route)</td><td>/api/logout</td></tr>
+  <tr><td>Užklausos struktūra</td><td>-</td></tr>
+  <tr><td>Užklausos „header“ dalis</td><td>Authorization: Bearer {token}</td></tr>
+  <tr><td>Atsakymo struktūra</td><td>-</td></tr>
+   <tr><td>Atsakymo kodas</td><td>200 - Ok</td></tr>
+   <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 401 - Unauthorized, netinkamas arba neegzistuojantis token. </td></tr>
 </table>
