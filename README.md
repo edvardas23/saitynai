@@ -473,3 +473,7 @@ Kitų sistemos objektų pridėjimo, redagavimo ir pašalinimo operacijos taip pa
    <tr><td>Atsakymo kodas</td><td>200 - Ok</td></tr>
    <tr><td>Galimi atsakymo kodai</td><td>404 - Not Found, įvedus neteisingą kelią. 401 - Unauthorized, netinkamas arba neegzistuojantis token. </td></tr>
 </table>
+
+# Išvados
+
+Kuriant projektą įgyta labai daug žinių kuriant *RESTful* programą. Išmokta naudotis *React* karkasu, su kuriuo darbo pradžia buvo daug sunkesnė nei tikėtasi, tačiau su laiku pavyko įvaldyti šią biblioteką ir įgyvendinti projektą. Išmokta talpinti projektus į serverį ir užtikrinti komunikaciją tarp jų. Sužinota kaip veikia autorizacijos tokenai. 
